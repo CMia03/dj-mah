@@ -18,6 +18,22 @@ export default function HomePage() {
     "idle"
   );
   const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    src: string;
+    alt: string;
+  } | null>(null);
+
+  const handleNavClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
+    event.preventDefault();
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    const offset = 80; // height of header + spacing
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,18 +61,57 @@ export default function HomePage() {
 
   return (
     <div
-      className="relative min-h-screen overflow-hidden text-white"
+      className="relative min-h-screen overflow-hidden text-white scroll-smooth"
       style={{
         background: `radial-gradient(circle at 20% 20%, ${palette.magenta} 0, rgba(123,51,126,0.15) 25%, transparent 40%), radial-gradient(circle at 80% 10%, ${palette.periwinkle} 0, rgba(102,103,171,0.15) 20%, transparent 35%), linear-gradient(140deg, ${palette.midnight} 0%, ${palette.violet} 50%, ${palette.magenta} 100%)`,
       }}
     >
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center px-6 py-4">
+        <div className="flex w-full max-w-6xl items-center justify-between rounded-full border border-white/10 bg-black/30 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur">
+          <span>DJ Mah</span>
+          <nav className="flex items-center gap-4">
+            <a
+              className="hover:text-white"
+              href="#hero"
+              onClick={(e) => handleNavClick(e, "hero")}
+            >
+              À propos
+            </a>
+            <a
+              className="hover:text-white"
+              href="#mixes"
+              onClick={(e) => handleNavClick(e, "mixes")}
+            >
+              Mixes & services
+            </a>
+            <a
+              className="hover:text-white"
+              href="#clients"
+              onClick={(e) => handleNavClick(e, "clients")}
+            >
+              Ils nous ont choisi
+            </a>
+            <a
+              className="hover:text-white"
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "contact")}
+            >
+              Contact
+            </a>
+          </nav>
+        </div>
+      </header>
+
       <div className="absolute inset-0 opacity-40" aria-hidden>
         <div className="absolute -left-24 top-12 h-72 w-72 rounded-full bg-gradient-to-br from-white/10 to-transparent blur-3xl" />
         <div className="absolute right-12 top-20 h-64 w-64 rounded-full bg-gradient-to-br from-[#6667AB]/40 to-transparent blur-3xl" />
       </div>
 
-      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-6 py-16 md:px-12 lg:px-20">
-        <section className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-6 pb-16 pt-28 md:px-12 lg:px-20">
+        <section
+          id="hero"
+          className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]"
+        >
           <div className="flex flex-col gap-6">
             <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 ring-1 ring-white/15 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-[#F5D5E0]" />
@@ -176,6 +231,50 @@ export default function HomePage() {
         </section>
 
         <section
+          id="clients"
+          className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+                Ils nous ont choisi
+              </p>
+              <h2 className="text-2xl font-bold">Clubs, événements & partenaires</h2>
+              <p className="text-sm text-white/80">
+                Quelques visuels des dates récentes où Mah a joué.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: "/images/mix.jpeg", alt: "DJ Mah en mix" },
+              { src: "/images/mix3.jpeg", alt: "Mix chez MU" },
+              { src: "/images/ifm1.jpeg", alt: "SN16 à l'IFM" },
+              { src: "/images/mah.JPG", alt: "Portrait DJ Mah" },
+            ].map((img) => (
+              <button
+                key={img.src}
+                type="button"
+                onClick={() => setSelectedImage(img)}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 focus:outline-none focus:ring-2 focus:ring-[#F5D5E0]/70"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  width={900}
+                  height={600}
+                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#210635]/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition" />
+                <span className="absolute bottom-3 left-3 rounded-full bg-black/50 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur">
+                  {img.alt}
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section
           id="contact"
           className="grid gap-8 rounded-3xl border border-white/10 bg-gradient-to-r from-[#210635]/70 via-[#420D4B]/70 to-[#7B337E]/70 p-8 shadow-2xl backdrop-blur lg:grid-cols-[1.2fr_0.8fr]"
         >
@@ -254,6 +353,35 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
+          onClick={() => setSelectedImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="relative max-h-[90vh] max-w-5xl overflow-hidden rounded-3xl border border-white/20 bg-black/40 backdrop-blur"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              width={1600}
+              height={1000}
+              className="h-full w-full max-h-[85vh] object-contain"
+              priority
+            />
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white/80 hover:bg-black/90"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

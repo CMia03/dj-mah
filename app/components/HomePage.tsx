@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
 import Image from "next/image";
+import { useState } from "react";
 
 const palette = {
   blush: "#F5D5E0",
@@ -9,6 +12,37 @@ const palette = {
 };
 
 export default function HomePage() {
+  const [email, setEmail] = useState("");
+  const [details, setDetails] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+    setError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, details }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Envoi impossible");
+      }
+      setStatus("success");
+      setEmail("");
+      setDetails("");
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Envoi impossible");
+    }
+  };
+
   return (
     <div
       className="relative min-h-screen overflow-hidden text-white"
@@ -172,7 +206,7 @@ export default function HomePage() {
           </div>
 
           <div className="rounded-2xl border border-white/15 bg-white/10 p-6 shadow-xl backdrop-blur">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-white/90">
                   Email / contact
@@ -181,6 +215,9 @@ export default function HomePage() {
                   type="email"
                   placeholder="ton.email@exemple.com"
                   className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
@@ -191,18 +228,28 @@ export default function HomePage() {
                   rows={4}
                   placeholder="Date, lieu, type d'événement, ambiance..."
                   className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none"
+                  required
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
                 />
               </div>
               <button
-                type="button"
+                type="submit"
                 className="w-full rounded-xl bg-[#F5D5E0] px-4 py-3 text-sm font-bold text-[#210635] shadow-lg shadow-[#F5D5E0]/30 transition hover:-translate-y-0.5 hover:shadow-[#F5D5E0]/50"
+                disabled={status === "loading"}
               >
-                Envoyer la demande
+                {status === "loading" ? "Envoi..." : "Envoyer la demande"}
               </button>
-              <p className="text-xs text-white/70">
-                Ce formulaire est statique. Branche-le à ton outil préféré
-                (Formspree, Resend, Airtable...) pour recevoir les demandes.
-              </p>
+              {status === "success" && (
+                <p className="text-xs font-semibold text-green-200">
+                  Demande envoyée, merci !
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-xs font-semibold text-red-200">
+                  {error || "Erreur lors de l’envoi."}
+                </p>
+              )}
             </form>
           </div>
         </section>

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const palette = {
@@ -22,6 +23,7 @@ export default function HomePage() {
     src: string;
     alt: string;
   } | null>(null);
+  const [navOpen, setNavOpen] = useState(false);
 
   const handleNavClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -33,6 +35,7 @@ export default function HomePage() {
     const offset = 80; // height of header + spacing
     const top = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: "smooth" });
+    setNavOpen(false);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -66,10 +69,10 @@ export default function HomePage() {
         background: `radial-gradient(circle at 20% 20%, ${palette.magenta} 0, rgba(123,51,126,0.15) 25%, transparent 40%), radial-gradient(circle at 80% 10%, ${palette.periwinkle} 0, rgba(102,103,171,0.15) 20%, transparent 35%), linear-gradient(140deg, ${palette.midnight} 0%, ${palette.violet} 50%, ${palette.magenta} 100%)`,
       }}
     >
-      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center px-6 py-4">
+      <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center px-4 py-3 sm:px-6">
         <div className="flex w-full max-w-6xl items-center justify-between rounded-full border border-white/10 bg-black/30 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur">
           <span>DJ Mah</span>
-          <nav className="flex items-center gap-4">
+          <nav className="hidden items-center gap-4 md:flex">
             <a
               className="hover:text-white"
               href="#hero"
@@ -99,7 +102,50 @@ export default function HomePage() {
               Contact
             </a>
           </nav>
+          <button
+            type="button"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs text-white md:hidden"
+            onClick={() => setNavOpen((v) => !v)}
+            aria-label={navOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          >
+            {navOpen ? <X size={18} /> : <Menu size={18} />}
+            <span className="leading-none">{navOpen ? "Fermer" : "Menu"}</span>
+          </button>
         </div>
+        {navOpen && (
+          <div className="mt-2 w-full max-w-6xl rounded-2xl border border-white/10 bg-black/50 px-4 py-3 text-sm font-semibold text-white/90 backdrop-blur md:hidden">
+            <nav className="flex flex-col gap-3">
+              <a
+                className="hover:text-white"
+                href="#hero"
+                onClick={(e) => handleNavClick(e, "hero")}
+              >
+                À propos
+              </a>
+              <a
+                className="hover:text-white"
+                href="#mixes"
+                onClick={(e) => handleNavClick(e, "mixes")}
+              >
+                Mixes & services
+              </a>
+              <a
+                className="hover:text-white"
+                href="#clients"
+                onClick={(e) => handleNavClick(e, "clients")}
+              >
+                Ils nous ont choisi
+              </a>
+              <a
+                className="hover:text-white"
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "contact")}
+              >
+                Contact
+              </a>
+            </nav>
+          </div>
+        )}
       </header>
 
       <div className="absolute inset-0 opacity-40" aria-hidden>
@@ -107,7 +153,7 @@ export default function HomePage() {
         <div className="absolute right-12 top-20 h-64 w-64 rounded-full bg-gradient-to-br from-[#6667AB]/40 to-transparent blur-3xl" />
       </div>
 
-      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-6 pb-16 pt-28 md:px-12 lg:px-20">
+      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-4 pb-16 pt-28 sm:px-6 md:px-12 lg:px-20">
         <section
           id="hero"
           className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]"

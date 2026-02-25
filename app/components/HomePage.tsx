@@ -19,6 +19,7 @@ export default function HomePage() {
     alt: string;
   } | null>(null);
   const [navOpen, setNavOpen] = useState(false);
+  const fullYear = new Date().getFullYear(); 
 
   const handleNavClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -43,7 +44,7 @@ export default function HomePage() {
     >
       <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center px-4 py-3 sm:px-6">
         <div className="flex w-full max-w-6xl items-center justify-between rounded-full border border-white/10 bg-black/30 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur">
-          <span>DJ Mah</span>
+          <span>DJ Ma</span>
           <nav className="hidden items-center gap-4 md:flex">
             <a
               className="hover:text-white"
@@ -157,13 +158,13 @@ export default function HomePage() {
           <div className="flex flex-col gap-6">
             <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 ring-1 ring-white/15 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-[#F5D5E0]" />
-              DJ Mah — Moonlight grooves
+              DJ Ma — Moonlight grooves
             </span>
             <h4 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
               Des sets qui font vibrer chaque événement.
             </h4>
             <p className="max-w-2xl text-lg text-white/80">
-              DJ Mah mélange house, afro, techno et edits surprises pour faire
+              DJ Ma mélange house, afro, techno et edits surprises pour faire
               danser clubs, festivals, afterworks ou cérémonies. Un son lunaire
               inspiré de la palette Moon: profond, chaud et électrique, jour et
               nuit.
@@ -201,7 +202,7 @@ export default function HomePage() {
             <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur">
               <Image
                 src="/images/mah.JPG"
-                alt="DJ Mah avec sa console"
+                alt="DJ Ma avec sa console"
                 width={900}
                 height={1200}
                 className="h-full w-full object-cover object-center"
@@ -251,6 +252,16 @@ export default function HomePage() {
                 desc: "Grooves hypnotiques, techno mélodique et basses enveloppantes.",
                 tone: "#210635",
               },
+              {
+                title: "Anniversaires",
+                desc: "Ambiance festive et personnalisée pour célébrer en musique.",
+                tone: "#F5D5E0",
+              },
+              {
+                title: "Mariages",
+                desc: "Musique élégante et émouvante pour le plus beau des jours.",
+                tone: "#7B337E",
+              },
             ].map((item) => (
               <div
                 key={item.title}
@@ -281,7 +292,7 @@ export default function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
                 Réseaux sociaux
               </p>
-              <h2 className="text-2xl font-bold">Suivez DJ Mah</h2>
+              <h2 className="text-2xl font-bold">Suivez DJ Ma</h2>
               <p className="text-sm text-white/80">
                 Retrouvez tous les mixes, extraits et actualités sur les réseaux.
               </p>
@@ -334,10 +345,10 @@ export default function HomePage() {
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { src: "/images/mix.jpeg", alt: "DJ Mah en mix" },
+              { src: "/images/mix.jpeg", alt: "DJ Ma en mix" },
               { src: "/images/mix3.jpeg", alt: "Final slam National IFM" },
               { src: "/images/ifm1.jpeg", alt: "SN16 à l'IFM" },
-              { src: "/images/mah.JPG", alt: "Portrait DJ Mah" },
+              { src: "/images/mah.JPG", alt: "Portrait DJ Ma" },
               { src: "/images/sary1.jpeg", alt: "Evénement MU" },
               { src: "/images/sary2.jpeg", alt: "Fin d'année MU" },
               { src: "/images/sary5.jpeg", alt: "Evenement privée" },
@@ -406,8 +417,8 @@ export default function HomePage() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white/90">Email</p>
-                    <a href="mailto:test@test.com" className="text-white/80 hover:text-white transition">
-                      test@test.com
+                    <a href="mailto:mhfrananja@gmail.com" className="text-white/80 hover:text-white transition">
+                      mhfrananja@gmail.com
                     </a>
                   </div>
                 </div>
@@ -422,8 +433,8 @@ export default function HomePage() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-white/90">Téléphone</p>
-                    <a href="tel:+261344643256" className="text-white/80 hover:text-white transition">
-                      +261 34 46 432 56
+                    <a href="tel:+261326914314" className="text-white/80 hover:text-white transition">
+                      +261 32 69 143 14
                     </a>
                   </div>
                 </div>
@@ -440,7 +451,7 @@ export default function HomePage() {
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-white">À propos</h3>
               <p className="text-sm text-white/80 leading-relaxed">
-                DJ Mah, créateur d&apos;ambiances lunaires. Spécialiste des sets house, afro et techno qui font vibrer clubs, festivals et événements privés. Une palette sonore unique inspirée de la nuit.
+                DJ MA, créateur d&apos;ambiances lunaires. Spécialiste des sets house, afro et techno qui font vibrer clubs, festivals et événements privés. Une palette sonore unique inspirée de la nuit.
               </p>
             </div>
 
@@ -524,7 +535,7 @@ export default function HomePage() {
 
           <div className="mt-8 pt-8 border-t border-white/10 text-center">
             <p className="text-sm text-white/60">
-              © 2026 Dj Mah — Tous droits réservés
+              © {fullYear} DJ Ma — Tous droits réservés
             </p>
           </div>
         </div>

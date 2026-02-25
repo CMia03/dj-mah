@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Facebook, Instagram, Music } from "lucide-react";
+import { FaTiktok } from 'react-icons/fa';
 import { useState } from "react";
 
 const palette = {
@@ -13,12 +14,6 @@ const palette = {
 };
 
 export default function HomePage() {
-  const [email, setEmail] = useState("");
-  const [details, setDetails] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
-  const [error, setError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<{
     src: string;
     alt: string;
@@ -38,29 +33,6 @@ export default function HomePage() {
     setNavOpen(false);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus("loading");
-    setError(null);
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, details }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Envoi impossible");
-      }
-      setStatus("success");
-      setEmail("");
-      setDetails("");
-    } catch (err) {
-      setStatus("error");
-      setError(err instanceof Error ? err.message : "Envoi impossible");
-    }
-  };
 
   return (
     <div
@@ -87,6 +59,13 @@ export default function HomePage() {
             >
               Mixes & services
             </a>
+             <a
+              className="hover:text-white"
+              href="#social"
+              onClick={(e) => handleNavClick(e, "social")}
+            >
+              Réseaux sociaux
+            </a>
             <a
               className="hover:text-white"
               href="#clients"
@@ -94,6 +73,7 @@ export default function HomePage() {
             >
               Ils nous ont choisi
             </a>
+           
             <a
               className="hover:text-white"
               href="#contact"
@@ -113,37 +93,53 @@ export default function HomePage() {
           </button>
         </div>
         {navOpen && (
-          <div className="mt-2 w-full max-w-6xl rounded-2xl border border-white/10 bg-black/50 px-4 py-3 text-sm font-semibold text-white/90 backdrop-blur md:hidden">
-            <nav className="flex flex-col gap-3">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 md:hidden">
+            <nav className="flex flex-col gap-6 text-center">
               <a
-                className="hover:text-white"
+                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
                 href="#hero"
                 onClick={(e) => handleNavClick(e, "hero")}
               >
                 À propos
               </a>
               <a
-                className="hover:text-white"
+                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
                 href="#mixes"
                 onClick={(e) => handleNavClick(e, "mixes")}
               >
                 Mixes & services
               </a>
+             
               <a
-                className="hover:text-white"
+                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                href="#social"
+                onClick={(e) => handleNavClick(e, "social")}
+              >
+                Réseaux sociaux
+              </a>
+               <a
+                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
                 href="#clients"
                 onClick={(e) => handleNavClick(e, "clients")}
               >
                 Ils nous ont choisi
               </a>
               <a
-                className="hover:text-white"
+                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
               >
                 Contact
               </a>
             </nav>
+            <button
+              type="button"
+              className="absolute top-6 right-6 rounded-full border border-white/20 bg-white/10 p-3 text-white"
+              onClick={() => setNavOpen(false)}
+              aria-label="Fermer le menu"
+            >
+              <X size={24} />
+            </button>
           </div>
         )}
       </header>
@@ -163,9 +159,9 @@ export default function HomePage() {
               <span className="h-2 w-2 rounded-full bg-[#F5D5E0]" />
               DJ Mah — Moonlight grooves
             </span>
-            <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
+            <h4 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
               Des sets qui font vibrer chaque événement.
-            </h1>
+            </h4>
             <p className="max-w-2xl text-lg text-white/80">
               DJ Mah mélange house, afro, techno et edits surprises pour faire
               danser clubs, festivals, afterworks ou cérémonies. Un son lunaire
@@ -277,6 +273,51 @@ export default function HomePage() {
         </section>
 
         <section
+          id="social"
+          className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur"
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+                Réseaux sociaux
+              </p>
+              <h2 className="text-2xl font-bold">Suivez DJ Mah</h2>
+              <p className="text-sm text-white/80">
+                Retrouvez tous les mixes, extraits et actualités sur les réseaux.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-4 justify-center sm:justify-start">
+            <a
+              href="https://web.facebook.com/search/top?q=rananja%20mahefa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+            >
+              <Facebook size={24} className="text-[#1877F2]" />
+              <span className="font-semibold">Facebook</span>
+            </a>
+            <a
+              href="https://www.instagram.com/rananja_mahefa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+            >
+              <Instagram size={24} className="text-[#E4405F]" />
+              <span className="font-semibold">Instagram</span>
+            </a>
+            <a
+              href="https://www.tiktok.com/@rananja.m?_r=1&_t=ZS-94DcPISxr5Z"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+            >
+              <FaTiktok size={24} className="text-black" />
+              <span className="font-semibold">TikTok</span>
+            </a>
+          </div>
+        </section>
+        <section
           id="clients"
           className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur"
         >
@@ -322,9 +363,9 @@ export default function HomePage() {
 
         <section
           id="contact"
-          className="grid gap-8 rounded-3xl border border-white/10 bg-gradient-to-r from-[#210635]/70 via-[#420D4B]/70 to-[#7B337E]/70 p-8 shadow-2xl backdrop-blur lg:grid-cols-[1.2fr_0.8fr]"
+          className="grid gap-8 rounded-3xl border border-white/10 bg-gradient-to-r from-[#210635]/70 via-[#420D4B]/70 to-[#7B337E]/70 p-8 shadow-2xl backdrop-blur lg:grid-cols-2"
         >
-          <div className="space-y-4">
+          <div className="space-y-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
               Booking
             </p>
@@ -350,55 +391,140 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/15 bg-white/10 p-6 shadow-xl backdrop-blur">
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-white/90">
-                  Email / contact
-                </label>
-                <input
-                  type="email"
-                  placeholder="ton.email@exemple.com"
-                  className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+          <div className="space-y-6">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-full bg-white/10 p-3">
+                    <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white/90">Email</p>
+                    <a href="mailto:test@test.com" className="text-white/80 hover:text-white transition">
+                      test@test.com
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-white/90">
-                  Détails de l&apos;événement
-                </label>
-                <textarea
-                  rows={4}
-                  placeholder="Date, lieu, type d'événement, ambiance..."
-                  className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none"
-                  required
-                  value={details}
-                  onChange={(e) => setDetails(e.target.value)}
-                />
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-full bg-white/10 p-3">
+                    <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white/90">Téléphone</p>
+                    <a href="tel:+261344643256" className="text-white/80 hover:text-white transition">
+                      +261 34 46 432 56
+                    </a>
+                  </div>
+                </div>
               </div>
-              <button
-                type="submit"
-                className="w-full rounded-xl bg-[#F5D5E0] px-4 py-3 text-sm font-bold text-[#210635] shadow-lg shadow-[#F5D5E0]/30 transition hover:-translate-y-0.5 hover:shadow-[#F5D5E0]/50"
-                disabled={status === "loading"}
-              >
-                {status === "loading" ? "Envoi..." : "Envoyer la demande"}
-              </button>
-              {status === "success" && (
-                <p className="text-xs font-semibold text-green-200">
-                  Demande envoyée, merci !
-                </p>
-              )}
-              {status === "error" && (
-                <p className="text-xs font-semibold text-red-200">
-                  {error || "Erreur lors de l’envoi."}
-                </p>
-              )}
-            </form>
+            </div>
           </div>
         </section>
       </main>
+
+      <footer className="border-t border-white/10 bg-black/30 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:px-12 lg:px-20">
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-3">
+            {/* Colonne 1: À propos */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white">À propos</h3>
+              <p className="text-sm text-white/80 leading-relaxed">
+                DJ Mah, créateur d&apos;ambiances lunaires. Spécialiste des sets house, afro et techno qui font vibrer clubs, festivals et événements privés. Une palette sonore unique inspirée de la nuit.
+              </p>
+            </div>
+
+            {/* Colonne 2: Navigation */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white">Navigation</h3>
+              <nav className="flex flex-col gap-2">
+                <a
+                  href="#hero"
+                  onClick={(e) => handleNavClick(e, "hero")}
+                  className="text-sm text-white/80 hover:text-white transition"
+                >
+                  À propos
+                </a>
+                <a
+                  href="#mixes"
+                  onClick={(e) => handleNavClick(e, "mixes")}
+                  className="text-sm text-white/80 hover:text-white transition"
+                >
+                  Mixes & services
+                </a>
+                 <a
+                  href="#social"
+                  onClick={(e) => handleNavClick(e, "social")}
+                  className="text-sm text-white/80 hover:text-white transition"
+                >
+                  Réseaux sociaux
+                </a>
+                <a
+                  href="#clients"
+                  onClick={(e) => handleNavClick(e, "clients")}
+                  className="text-sm text-white/80 hover:text-white transition"
+                >
+                  Ils nous ont choisi
+                </a>
+               
+                <a
+                  href="#contact"
+                  onClick={(e) => handleNavClick(e, "contact")}
+                  className="text-sm text-white/80 hover:text-white transition"
+                >
+                  Contact
+                </a>
+              </nav>
+            </div>
+
+            {/* Colonne 3: Follow me */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white">Follow me</h3>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={20} className="text-[#1877F2]" />
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={20} className="text-[#E4405F]" />
+                </a>
+                <a
+                  href="https://tiktok.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
+                  aria-label="TikTok"
+                >
+                  <Music size={20} className="text-black" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-8 border-t border-white/10 text-center">
+            <p className="text-sm text-white/60">
+              © 2026 Dj Mah — Tous droits réservés
+            </p>
+          </div>
+        </div>
+      </footer>
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
@@ -411,8 +537,8 @@ export default function HomePage() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={selectedImage.src}
-              alt={selectedImage.alt}
+              src={selectedImage?.src || ""}
+              alt={selectedImage?.alt || ""}
               width={1600}
               height={1000}
               className="h-full w-full max-h-[85vh] object-contain"

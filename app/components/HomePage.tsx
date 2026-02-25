@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
-import { Menu, X, Facebook, Instagram, Music } from "lucide-react";
+import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { FaTiktok } from 'react-icons/fa';
 import { useState } from "react";
 
@@ -335,9 +335,13 @@ export default function HomePage() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { src: "/images/mix.jpeg", alt: "DJ Mah en mix" },
-              { src: "/images/mix3.jpeg", alt: "Mix chez MU" },
+              { src: "/images/mix3.jpeg", alt: "Final slam National IFM" },
               { src: "/images/ifm1.jpeg", alt: "SN16 à l'IFM" },
               { src: "/images/mah.JPG", alt: "Portrait DJ Mah" },
+              { src: "/images/sary1.jpeg", alt: "Evénement MU" },
+              { src: "/images/sary2.jpeg", alt: "Fin d'année MU" },
+              { src: "/images/sary5.jpeg", alt: "Evenement privée" },
+              { src: "/images/anniv.jpeg", alt: "Anniversaire Andz" },
             ].map((img) => (
               <button
                 key={img.src}
@@ -488,7 +492,7 @@ export default function HomePage() {
               <h3 className="text-lg font-bold text-white">Follow me</h3>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="https://facebook.com"
+                  href="https://web.facebook.com/search/top?q=rananja%20mahefa"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
@@ -497,7 +501,7 @@ export default function HomePage() {
                   <Facebook size={20} className="text-[#1877F2]" />
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/rananja_mahefa/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
@@ -506,13 +510,13 @@ export default function HomePage() {
                   <Instagram size={20} className="text-[#E4405F]" />
                 </a>
                 <a
-                  href="https://tiktok.com"
+                  href="https://www.tiktok.com/@rananja.m?_r=1&_t=ZS-94DcPISxr5Z"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20"
                   aria-label="TikTok"
                 >
-                  <Music size={20} className="text-black" />
+                  <FaTiktok size={20} className="text-black" />
                 </a>
               </div>
             </div>

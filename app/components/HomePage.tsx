@@ -94,17 +94,17 @@ export default function HomePage() {
           </button>
         </div>
         {navOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 md:hidden">
-            <nav className="flex flex-col gap-6 text-center">
+          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 px-4 md:hidden">
+            <nav className="flex flex-col gap-5 text-center items-center justify-center">
               <a
-                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
                 href="#hero"
                 onClick={(e) => handleNavClick(e, "hero")}
               >
                 À propos
               </a>
               <a
-                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
                 href="#mixes"
                 onClick={(e) => handleNavClick(e, "mixes")}
               >
@@ -112,21 +112,21 @@ export default function HomePage() {
               </a>
              
               <a
-                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
                 href="#social"
                 onClick={(e) => handleNavClick(e, "social")}
               >
                 Réseaux sociaux
               </a>
                <a
-                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
                 href="#clients"
                 onClick={(e) => handleNavClick(e, "clients")}
               >
                 Ils nous ont choisi
               </a>
               <a
-                className="text-2xl font-semibold text-white hover:text-[#F5D5E0]"
+                className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "contact")}
               >
@@ -135,7 +135,7 @@ export default function HomePage() {
             </nav>
             <button
               type="button"
-              className="absolute top-6 right-6 rounded-full border border-white/20 bg-white/10 p-3 text-white"
+              className="absolute top-6 right-6 rounded-full border border-white/20 bg-white/10 p-3 text-white hover:bg-white/20 transition-colors"
               onClick={() => setNavOpen(false)}
               aria-label="Fermer le menu"
             >
@@ -153,9 +153,20 @@ export default function HomePage() {
       <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-4 pb-16 pt-28 sm:px-6 md:px-12 lg:px-20">
         <section
           id="hero"
-          className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]"
+          className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] relative"
         >
-          <div className="flex flex-col gap-6">
+          <div className="absolute inset-x-[-16px] inset-y-[-112px] lg:hidden">
+            <Image
+              src="/images/mah.JPG"
+              alt="DJ MA avec sa console"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#210635]/70 via-[#210635]/50 to-[#210635]/90" />
+          </div>
+
+          <div className="flex flex-col gap-6 relative z-10 lg:col-span-1">
             <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 ring-1 ring-white/15 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-[#F5D5E0]" />
               DJ MA — Moonlight grooves
@@ -197,7 +208,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative flex items-center justify-center">
+          <div className="hidden lg:flex relative items-center justify-center">
             <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/10 via-transparent to-white/5 blur-2xl" />
             <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur">
               <Image

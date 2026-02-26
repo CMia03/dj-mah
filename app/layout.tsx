@@ -20,7 +20,7 @@ const montserrat = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DJ Mah | Official Site",
+  title: "DJ MA | Madagascar",
   description: "DJ Mah — mixes, bookings, and moonlit vibes.",
 };
 

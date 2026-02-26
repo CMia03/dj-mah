@@ -26,7 +26,7 @@ export default function Header({ onNavClick }: HeaderProps) {
             href="#mixes"
             onClick={(e) => onNavClick(e, "mixes")}
           >
-            Mixes & services
+            Mes prestations
           </a>
            <a
             className="hover:text-white"

@@ -47,21 +47,21 @@ export default function Footer({ onNavClick }: FooterProps) {
                 Réseaux sociaux
               </a>
               <a
-                className="hover:text-[#F5D5E0]"
+                className="text-sm text-white/80 hover:text-white transition"
                 href="#clients"
                 onClick={(e) => onNavClick(e, "clients")}
               >
                 Ils nous ont choisi
               </a>
               <a
-                className="hover:text-[#F5D5E0]"
+                className="text-sm text-white/80 hover:text-white transition"
                 href="#blog"
                 onClick={(e) => onNavClick(e, "blog")}
               >
                 Blog
               </a>
               <a
-                className="hover:text-[#F5D5E0]"
+                className="text-sm text-white/80 hover:text-white transition"
                 href="#contact"
                 onClick={(e) => onNavClick(e, "contact")}
               >

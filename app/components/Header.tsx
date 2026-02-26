@@ -42,7 +42,13 @@ export default function Header({ onNavClick }: HeaderProps) {
           >
             Ils nous ont choisi
           </a>
-         
+          <a
+            className="hover:text-white"
+            href="#blog"
+            onClick={(e) => onNavClick(e, "blog")}
+          >
+            Blog
+          </a>
           <a
             className="hover:text-white"
             href="#contact"
@@ -104,6 +110,16 @@ export default function Header({ onNavClick }: HeaderProps) {
               }}
             >
               Ils nous ont choisi
+            </a>
+            <a
+              className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"
+              href="#blog"
+              onClick={(e) => {
+                onNavClick(e, "blog");
+                setNavOpen(false);
+              }}
+            >
+              Blog
             </a>
             <a
               className="text-xl font-semibold text-white hover:text-[#F5D5E0] transition-colors"

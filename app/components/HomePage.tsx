@@ -6,6 +6,7 @@ import MixesSection from "./MixesSection";
 import SocialSection from "./SocialSection";
 import ClientsSection from "./ClientsSection";
 import ContactSection from "./ContactSection";
+import BlogSection from "./BlogSection";
 import Footer from "./Footer";
 import ImageModal from "./ImageModal";
 
@@ -62,6 +63,7 @@ export default function HomePage() {
         <MixesSection />
         <SocialSection />
         <ClientsSection onImageClick={handleImageClick} />
+        <BlogSection />
         <ContactSection />
       </main>
 

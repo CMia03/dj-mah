@@ -86,7 +86,7 @@ export default function BlogSection() {
               >
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors rounded-t-2xl"
+                  className="cursor-pointer w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors rounded-t-2xl"
                 >
                   <h3 className="text-lg font-semibold text-[#F5D5E0] pr-4">
                     {faq.question}

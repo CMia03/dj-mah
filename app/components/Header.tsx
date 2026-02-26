@@ -11,9 +11,9 @@ export default function Header({ onNavClick }: HeaderProps) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-center px-4 py-3 sm:px-6">
-      <div className="flex w-full max-w-6xl items-center justify-between rounded-full border border-white/10 bg-black/30 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur">
+      <div className="flex w-full max-w-6xl items-center justify-between rounded-full border border-white/10 bg-black/30 px-6 py-4 text-sm font-semibold text-white/90 backdrop-blur">
         <span>DJ MA</span>
-        <nav className="hidden items-center gap-4 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           <a
             className="hover:text-white"
             href="#hero"

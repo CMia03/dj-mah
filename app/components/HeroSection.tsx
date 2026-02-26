@@ -1,7 +1,11 @@
 "use client";
 import Image from "next/image";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  onPlayMix: () => void;
+}
+
+export default function HeroSection({ onPlayMix }: HeroSectionProps) {
   return (
     <section
       id="hero"
@@ -40,8 +44,8 @@ export default function HeroSection() {
             Réserver une date
           </a>
           <a
-            href="#mixes"
-            className="rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white hover:bg-white/10"
+            onClick={onPlayMix}
+            className="rounded-full border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white hover:bg-white/10 cursor-pointer"
           >
             Écouter un mix
           </a>

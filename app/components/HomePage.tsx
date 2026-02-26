@@ -9,6 +9,7 @@ import ContactSection from "./ContactSection";
 import BlogSection from "./BlogSection";
 import Footer from "./Footer";
 import ImageModal from "./ImageModal";
+import AudioPlayer from "./AudioPlayer";
 
 const palette = {
   blush: "#F5D5E0",
@@ -23,6 +24,7 @@ export default function HomePage() {
     src: string;
     alt: string;
   } | null>(null);
+  const [isAudioPlayerOpen, setIsAudioPlayerOpen] = useState(false);
 
   const handleNavClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -44,6 +46,14 @@ export default function HomePage() {
     setSelectedImage(null);
   };
 
+  const handlePlayMix = () => {
+    setIsAudioPlayerOpen(true);
+  };
+
+  const handleCloseAudioPlayer = () => {
+    setIsAudioPlayerOpen(false);
+  };
+
   return (
     <div
       className="relative min-h-screen overflow-hidden text-white scroll-smooth"
@@ -59,7 +69,7 @@ export default function HomePage() {
       </div>
 
       <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-16 px-4 pb-16 pt-28 sm:px-6 md:px-12 lg:px-20">
-        <HeroSection />
+        <HeroSection onPlayMix={handlePlayMix} />
         <MixesSection />
         <SocialSection />
         <ClientsSection onImageClick={handleImageClick} />
@@ -69,6 +79,11 @@ export default function HomePage() {
 
       <Footer onNavClick={handleNavClick} />
       <ImageModal selectedImage={selectedImage} onClose={handleCloseModal} />
+      <AudioPlayer 
+        isOpen={isAudioPlayerOpen} 
+        onClose={handleCloseAudioPlayer} 
+        audioSrc="/mix/mixMa.mp3" 
+      />
     </div>
   );
 }
